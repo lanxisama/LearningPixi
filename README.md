@@ -267,30 +267,32 @@ let sprite = new PIXI.Sprite(texture);
 
 Pixi强大的`loader`对象可以加载任何你需要种类的图像资源。这里展示了怎么加载一个图像并在加载完成时用一个叫做`setup`的方法来使用它。
 ```js
-PIXI.loader
+new PIXI.Loader()
   .add("images/anyImage.png")
   .load(setup);
 
 function setup() {
   //This code will run when the loader has finished loading the image
 }
+
 ```
 [Pixi的最佳实践](http://www.html5gamedevs.com/topic/16019-preload-all-textures/?p=90907)
 如果你使用了Loader，你就应该创建一个精灵来连接`loader`的`resources`对象，像下面这样：
 ```js
 let sprite = new PIXI.Sprite(
-  PIXI.loader.resources["images/anyImage.png"].texture
+  new PIXI.Loader().resources["images/anyImage.png"].texture
 );
 ```
 这里是一个完整的加载图像的代码。调用`setup`方法，并为加载的图像创建一个精灵。
 ```js
-PIXI.loader
+const loader = new PIXI.Loader();
+loader
   .add("images/anyImage.png")
   .load(setup);
 
 function setup() {
   let sprite = new PIXI.Sprite(
-    PIXI.loader.resources["images/anyImage.png"].texture
+    loader.resources["images/anyImage.png"].texture
   );
 }
 ```
@@ -298,7 +300,7 @@ function setup() {
 
 你可以链式调用`add`方法来加载一系列图像，像下面这样：
 ```js
-PIXI.loader
+new PIXI.Loader()
   .add("images/imageOne.png")
   .add("images/imageTwo.png")
   .add("images/imageThree.png")
@@ -306,7 +308,7 @@ PIXI.loader
 ```
 更好的方式则是用数组给一个`add`方法传参，像这样：
 ```js
-PIXI.loader
+new PIXI.Loader()
   .add([
     "images/imageOne.png",
     "images/imageTwo.png",
